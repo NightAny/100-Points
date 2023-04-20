@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="icon" type="image/png" href="./assets/9jvSlp.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>100Points</title>
+</head>
+<body>
+    <div class="area">
+        <ul class="circles">
+            <li></li><li></li><li></li><li></li><li></li>
+            <li></li><li></li><li></li><li></li><li></li>
+        </ul>
+    </div >
+    <div class="TelaInicial">
+        <h1 class="Title" aria-label="100Points"></h1>
+        <button class="Menu" onclick="ComecarJogo()">Jogar</button>
+        <button class="Menu" onclick="Creditos()">Creditos</button>
+        <button class="Menu" onclick="Config()">Config</button>
+        <button class="Menu" onclick="Sair()">Sair</button>
+    </div>
+    <div class="AnimacaofimdeJogo">
+        <div class="balao"></div>
+        <div id="quadradofim" class="quadradofim"></div>
+        <button class="btn-SairJogo" onclick="VoltarTelas()">Voltar</button>
+    </div>
+    <div class="GameStart">
+        <span id="score"></span><br>
+        <button class="Reiniciar" onclick="ReiniciarGame()">Reiniciar</button>
+        <button class="btn-SairJogo" onclick="VoltarTelas()">Voltar</button>
+        <div class="controle">
+            <button class="button1" onclick="movercima()">^</button>
+            <button class="button2" onclick="moveresquerda()"><</button>
+            <button class="button3" onclick="moverdireita()">></button>
+            <button class="button4" onclick="moverbaixo()">v</button>
+        </div>
+        <div class="btnAtaque">
+            <button class="Power" onclick="habilidadeEspecial()">Power</button>
+        </div>
+        <div class="GameArea">
+            <div id="space_game" class="GameSpinAnimate"></div>
+            <p class="GameSpinAnimate">Vá Até os quadrados Verdes</p>
+            <span id="FimJogo">Fim de Jogo</span>
+        </div>
+    </div>
+    <div class="TelaCreditos">
+        <button class="btn-voltar" onclick="VoltarTelas()">Voltar</button>
+        <h2 class="Title FontSize">Criador e Programador</h2>
+        <span>Wellyngton de Souza</span>
+    </div>
+    <div class="TelaConfig">
+        <button class="btn-voltar" onclick="VoltarTelas()">Voltar</button>
+        <h2 class="Title">Configurações</h2>
+        <button class="Opcao">Tema padrão</button>
+        <button class="Opcao">Tema Redondo</button>
+    </div>
+    <audio autoplay loop src="./sound/main.mp3"></audio>
+    <audio id="sndMorte" src="./sound/morte.mp3"></audio>
+    <audio id="sndMoeda" src="./sound/moeda.mp3"></audio>
+    <audio id="sndFinal" src="./sound/musicafinal.mp3"></audio>
+    <script src="./config/script.js"></script>
+</body>
+</html>
