@@ -1,117 +1,87 @@
 var space_game = document.querySelector('#space_game');
 var GameStart = document.querySelector('.GameStart');
-var score = document.querySelector('#score');
-var fim = document.querySelector("#FimJogo");
-var musica = document.querySelector("audio");
+var score = document.getElementById('score');
+var fim = document.getElementById("FimJogo");
 var gamebackground = document.querySelector(".area");
-var sndMorte = document.querySelector("#sndMorte");
-var sndMoeda = document.querySelector("#sndMoeda");
+var musica = document.querySelector("audio");
+musica.volume = 0.4;
+var sndMorte = document.getElementById("sndMorte");
+sndMorte.volume = 0.4;
+var sndMoeda = document.getElementById("sndMoeda");
+sndMoeda.volume = 0.5;
+
 var controle = document.querySelector(".controle");
 var btnPower = document.querySelector(".Power");
 var txtp = document.querySelector("p");
 var tamanhoPlayer = 30;
 var FimJogo = false;
-var pontuacao = 00;
+var pontuacao = 0;
 var x = 0,y = 0, max = 10, ix = 0, iy = 0;
 
 const GerarPlayer = () =>{
-    player = document.createElement("div");  // variavel global 
-    player.setAttribute("class", "player");
-    space_game.appendChild(player);
+    player = document.querySelector(".player");
     score.innerHTML = "Score " + pontuacao;
 }
 
 const GerarInimigo = () =>{
-    inimigo = document.createElement("div");  // variavel global 
-    inimigo.setAttribute("class", "inimigo");
+    inimigo = document.querySelector(".inimigo");
     inimigo.style.left = (ix * tamanhoPlayer) + "px";
     inimigo.style.top = (iy * tamanhoPlayer) + "px";
-    space_game.appendChild(inimigo);
 }
 
 const GerarFruta = () =>{
     let frutaX = parseInt(Math.random() * max);
     let frutaY = parseInt(Math.random() * max);
-    frutaY === 8 ? frutaY = -1 : "";
-    frutaY === 9 ? frutaY = -2 : "";
-    Fruta = document.createElement("div"); // variavel global 
-    Fruta.setAttribute("class", "fruta");
+    Fruta = document.querySelector(".fruta");
     Fruta.style.left = frutaX * tamanhoPlayer + "px";
     Fruta.style.top = frutaY * tamanhoPlayer + "px";
-    space_game.appendChild(Fruta);
-    Fruta.classList.add('nascer');
-    setTimeout(() => {
-        Fruta.classList.remove('nascer');
-    }, 100)
     sndMoeda.play();
 }
 
 const Verificavitoria = () =>{
      if (pontuacao > 99){
-        //fim.innerHTML = `Parabens Voçẽ Conseguiu`;
-        //fim.style.display = "block";
         FimJogo = true;
-        //txtp.style.visibility = "hidden";
      } 
 }
 
 const BackgroundEscuro = () =>{
-    let button1 = document.querySelector(".button1");
-    let button2 = document.querySelector(".button2");
-    let button3 = document.querySelector(".button3");
-    let button4 = document.querySelector(".button4");
-
-    button1.style.border = "solid white 2px";
-    button2.style.border = "solid white 2px";
-    button3.style.border = "solid white 2px";
-    button4.style.border = "solid white 2px";
-    btnPower.style.border = "solid white 2px";
-    button1.style.color = "white";
-    button2.style.color = "white";
-    button3.style.color = "white";
-    button4.style.color = "white";
+    const buttons = document.querySelectorAll(".controle button");
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].style.border = "solid white 2px";
+        buttons[i].style.color = "white";
+    }
+    btnPower.style.border = "white white 2px";
     btnPower.style.color = "white";
 }
 
 const BackgroundClaro = () =>{
-    let button1 = document.querySelector(".button1");
-    let button2 = document.querySelector(".button2");
-    let button3 = document.querySelector(".button3");
-    let button4 = document.querySelector(".button4");
-
-    button1.style.border = "solid Black 2px";
-    button2.style.border = "solid Black 2px";
-    button3.style.border = "solid Black 2px";
-    button4.style.border = "solid Black 2px";
+    const buttons = document.querySelectorAll(".controle button");
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].style.border = "solid Black 2px";
+        buttons[i].style.color = "Black";
+    }
     btnPower.style.border = "solid Black 2px";
-    button1.style.color = "Black";
-    button2.style.color = "Black";
-    button3.style.color = "Black";
-    button4.style.color = "Black";
     btnPower.style.color = "Black";
 }
 
 const habilidadeEspecial = () =>{
     if(ix / tamanhoPlayer > 3 && iy / tamanhoPlayer > 4){
-        iy = 9 * tamanhoPlayer;
+        iy = 10 * tamanhoPlayer;
         ix = 9 * tamanhoPlayer;
         inimigo.style.top = (iy - tamanhoPlayer) + "px";
         inimigo.style.left = ix + "px";
-    }
-    if(ix / tamanhoPlayer <= 4 && iy / tamanhoPlayer > 4){
-        iy = 9 * tamanhoPlayer;
+    } else if(ix / tamanhoPlayer <= 4 && iy / tamanhoPlayer > 4){
+        iy = 10 * tamanhoPlayer;
         ix = 0 * tamanhoPlayer;
         inimigo.style.top = (iy - tamanhoPlayer) + "px";
         inimigo.style.left = ix + "px";
-    }
-    if(ix / tamanhoPlayer <= 4 && iy / tamanhoPlayer <= 4){
-        iy = 0 * tamanhoPlayer;
+    } else if(ix / tamanhoPlayer <= 4 && iy / tamanhoPlayer <= 4){
+        iy = 1 * tamanhoPlayer;
         ix = 0 * tamanhoPlayer;
         inimigo.style.top = (iy - tamanhoPlayer) + "px";
         inimigo.style.left = ix + "px";
-    }
-    if(ix / tamanhoPlayer > 3 && iy / tamanhoPlayer <= 4){
-        iy = 0 * tamanhoPlayer;
+    } else if(ix / tamanhoPlayer > 3 && iy / tamanhoPlayer <= 4){
+        iy = 1 * tamanhoPlayer;
         ix = 9 * tamanhoPlayer;
         inimigo.style.top = (iy - tamanhoPlayer) + "px";
         inimigo.style.left = ix + "px";
@@ -187,34 +157,31 @@ const FinalCompleto = () =>{
 const AtualizaTexto = () =>{
     //Level 1
     if(pontuacao > 0 && pontuacao <=10){
-        pontuacao === 1 ? txtp.innerHTML = "Continue Assim" : "";
-        pontuacao === 2 ? txtp.innerHTML = "Todas as vezes que vc pegar uma fruta sua pontuação aumenta" : "";
-        pontuacao === 3 ? txtp.innerHTML = "Esse de vermelho é o seu inimigo" : "";
-        pontuacao === 4 ? txtp.innerHTML = "Fuja dele o maximo possivel" : "";
-        pontuacao === 5 ? txtp.innerHTML = "você não irá querer saber o que vai acontecer" : "";
-        pontuacao === 6 ? txtp.innerHTML = "Nesta realidade voçe é um ser abstrato" : "";
-        pontuacao === 7 ? txtp.innerHTML = "Que vive em prol da sua existẽncia" : "";
-        pontuacao === 8 ? txtp.innerHTML = "Sem Ter um real objetivo" : "";
-        pontuacao === 10 ? txtp.innerHTML = "O que esta acontecendo?" : "";
+        pontuacao === 1 ? txtp.innerHTML = "Continue assim" : "";
+        pontuacao === 2 ? txtp.innerHTML = "Todas as vezes que você pegar uma fruta sua pontuação aumenta" : "";
+        pontuacao === 3 ? txtp.innerHTML = "Esse de vermelho é seu inimigo" : "";
+        pontuacao === 4 ? txtp.innerHTML = "Fuja dele o máximo possível" : "";
+        pontuacao === 5 ? txtp.innerHTML = "Você não vai querer saber o que vai acontecer" : "";
+        pontuacao === 6 ? txtp.innerHTML = "Nesta realidade você é um ser abstrato" : "";
+        pontuacao === 7 ? txtp.innerHTML = "Que vive em prol da sua existência" : "";
+        pontuacao === 8 ? txtp.innerHTML = "Sem ter um objetivo real" : "";
+        pontuacao === 10 ? txtp.innerHTML = "O que está acontecendo?" : "";
         pontuacao === 10 ? gamebackground.style.backgroundColor = "black" : "";
         pontuacao === 10 ? BackgroundEscuro() : "";
-    }
-    if(pontuacao > 10 && pontuacao <=20){
-        pontuacao === 11 ? txtp.innerHTML = "Tudo esta escuro" : "";
-        pontuacao === 12 ? txtp.innerHTML = "Teria que estar assim?" : "";
-        pontuacao === 13 ? txtp.innerHTML = "Temo dizer que voçe terá<br>de esperar um pouco" : "";
-        pontuacao === 14 ? txtp.innerHTML = "Até que a iluminação volte" : "";
-        pontuacao === 15 ? txtp.innerHTML = "Enquanto isso Vou lhe perguntar" : "";
-        pontuacao === 16 ? txtp.innerHTML = "Coisas como o que<br>te trouxe<br>até aqui" : "";
-        pontuacao === 16 ? txtp.innerHTML = "Talvez a curiosidade?" : "";
-        pontuacao === 17 ? txtp.innerHTML = "Ou quem sabe apenas seja" : "";
-        pontuacao === 18 ? txtp.innerHTML = "Um sentimento mal preenchido" : "";
-        pontuacao === 19 ? txtp.innerHTML = "Boa justificativa Seria" : "";
+    } else if(pontuacao > 10 && pontuacao <=20){
+        pontuacao === 11 ? txtp.innerHTML = "Está tudo escuro." : "";
+        pontuacao === 12 ? txtp.innerHTML = "Deveria ser assim?" : "";
+        pontuacao === 13 ? txtp.innerHTML = "Temo dizer que você terá que esperar um pouco." : "";
+        pontuacao === 14 ? txtp.innerHTML = "Até que a iluminação volte." : "";
+        pontuacao === 15 ? txtp.innerHTML = "Enquanto isso, vou lhe perguntar..." : "";
+        pontuacao === 16 ? txtp.innerHTML = "Coisas como o que te trouxe até aqui." : "";
+        pontuacao === 17 ? txtp.innerHTML = "Ou quem sabe, apenas seja..." : "";
+        pontuacao === 18 ? txtp.innerHTML = "Um sentimento mal preenchido." : "";
+        pontuacao === 19 ? txtp.innerHTML = "Uma boa justificativa seria..." : "";
         pontuacao === 20 ? txtp.innerHTML = "Quem é voçe ou onde estás" : "";
         pontuacao === 20 ? gamebackground.style.backgroundColor = "purple" : "";
         pontuacao === 20 ? BackgroundClaro() : "";
-    }
-    if(pontuacao > 20 && pontuacao <=30){
+    } else if(pontuacao > 20 && pontuacao <=30){
         pontuacao === 20 ? txtp.innerHTML = "Pronto" : "";
         pontuacao === 21 ? txtp.innerHTML = "Não esta tão escuro" : "";
         pontuacao === 22 ? txtp.innerHTML = "Tinha medo" : "";
@@ -230,8 +197,7 @@ const AtualizaTexto = () =>{
         pontuacao === 30 ? gamebackground.style.boxShadow = "inset 0px 0px 64px 10px rgba(0,0,0,1)" : "";
         pontuacao === 30 ? txtp.innerHTML = "Estamos em novas áreas" : "";
         pontuacao === 30 ? BackgroundEscuro() : "";
-    }
-    if(pontuacao > 30 && pontuacao <=40){
+    } else if(pontuacao > 30 && pontuacao <=40){
         pontuacao === 31 ? txtp.innerHTML = "indo cada vez" : "";
         pontuacao === 32 ? txtp.innerHTML = "Cada Vez mais Fundo..." : "";
         pontuacao === 33 ? txtp.innerHTML = "Se continuar assim vamos chegar lá" : "";
@@ -245,8 +211,7 @@ const AtualizaTexto = () =>{
         pontuacao === 39 ? txtp.innerHTML = "Por apenas ter Conquistado" : "";
         pontuacao === 40 ? txtp.innerHTML = "Em breve vc vai saber" : "";
         pontuacao === 40 ? gamebackground.style.backgroundColor = "rgb(71, 87, 56)" : "";
-    }
-    if(pontuacao > 40 && pontuacao <=50){
+    } else if(pontuacao > 40 && pontuacao <=50){
         pontuacao === 41 ? txtp.innerHTML = "De onde voçe veio" : "";
         pontuacao === 42 ? txtp.innerHTML = "E para onde irá" : "";
         pontuacao === 43 ? txtp.innerHTML = "Todas as perguntas" : "";
@@ -260,8 +225,7 @@ const AtualizaTexto = () =>{
         pontuacao === 50 ? gamebackground.style.boxShadow = "none" : "";
         pontuacao === 50 ? inimigo.style.visibility = "visible" : "";
         pontuacao === 50 ? habilidadeEspecial() : "";
-    }
-    if(pontuacao > 50 && pontuacao <=60){
+    } else if(pontuacao > 50 && pontuacao <=60){
         pontuacao === 51 ? txtp.innerHTML = "De onde voçe veio" : "";
         pontuacao === 52 ? txtp.innerHTML = "Existem inumeros de Ti" : "";
         pontuacao === 53 ? txtp.innerHTML = "De diferentes Epocas" : "";
@@ -274,8 +238,7 @@ const AtualizaTexto = () =>{
         pontuacao === 60 ? txtp.innerHTML = "Apenas suas decições importam" : "";
         pontuacao === 60 ? gamebackground.classList.remove('backgroundColorido') : "";
         pontuacao === 60 ? gamebackground.style.backgroundColor = "rgb(180, 123, 150)" : "";
-    }
-    if(pontuacao > 60 && pontuacao <=70){
+    } else if(pontuacao > 60 && pontuacao <=70){
         pontuacao === 62 ? txtp.innerHTML = "Tudo esta do jeito que deveria estar" : "";
         pontuacao === 63 ? txtp.innerHTML = "Apenas continue" : "";
         pontuacao === 64 ? txtp.innerHTML = "continue..." : "";
@@ -288,8 +251,7 @@ const AtualizaTexto = () =>{
         pontuacao === 69 ? txtp.innerHTML = "Há varios anos atras" : "";
         pontuacao === 70 ? gamebackground.style.backgroundColor = "rgb(107, 107, 107)" : "";
         pontuacao === 70 ? gamebackground.style.boxShadow = "inset 0px 0px 64px 10px rgba(0,0,0,1)" : "";
-    }
-    if(pontuacao > 70 && pontuacao <=80){
+    } else if(pontuacao > 70 && pontuacao <=80){
         pontuacao === 71 ? txtp.innerHTML = "Houveram mudanças externas" : "";
         pontuacao === 72 ? txtp.innerHTML = "Com o intuito" : "";
         pontuacao === 73 ? txtp.innerHTML = "De mudar a essencia da vida" : "";
@@ -304,8 +266,7 @@ const AtualizaTexto = () =>{
         pontuacao === 80 ? gamebackground.style.backgroundColor = "rgb(77, 77, 77)" : "";
         pontuacao === 80 ? inimigo.style.visibility = "hidden" : "";
         pontuacao === 80 ? BackgroundEscuro() : "";
-    }
-    if(pontuacao > 80 && pontuacao <=90){
+    } else if(pontuacao > 80 && pontuacao <=90){
         pontuacao === 81 ? txtp.innerHTML = "Pois viram que isso estava" : "";
         pontuacao === 82 ? txtp.innerHTML = "Alem da compreenção deles" : "";
         pontuacao === 83 ? txtp.innerHTML = "Forçaram um ser como voçe" : "";
@@ -320,8 +281,7 @@ const AtualizaTexto = () =>{
         pontuacao === 90 ? gamebackground.style.boxShadow = "none" : "";
         pontuacao === 90 ? gamebackground.classList.remove('GameSpinAnimate') : "";
         pontuacao === 90 ? gamebackground.style.backgroundColor = "rgb(32, 32, 32)" : "";
-    }
-    if(pontuacao > 90 && pontuacao <=100){
+    } else if(pontuacao > 90 && pontuacao <=100){
         pontuacao === 91 ? txtp.innerHTML = "A essencia da Vida" : "";
         pontuacao === 91 ? gamebackground.style.backgroundColor = "rgb(28, 28, 28)" : "";
         pontuacao === 92 ? txtp.innerHTML = "Por isso" : "";
@@ -340,91 +300,76 @@ const AtualizaTexto = () =>{
         pontuacao === 98 ? gamebackground.style.backgroundColor = "rgb(2, 2, 2)" : "";
         pontuacao === 99 ? txtp.innerHTML = "Ja descobriu?" : "";
         pontuacao === 100 ? controle.style.display = "none" : "";
-        pontuacao === 100 ? FinalCompleto() : "";
+        pontuacao === 100 && FinalCompleto();
     }
 }
 
 const destruirFruta = () =>{
-    Fruta.remove();
     pontuacao++;
     score.innerHTML = "Score " + pontuacao;
-    score.innerHTML > 10 ? moverInimigo() : "";
+    score.innerHTML > 10 && moverInimigo();
     GerarFruta();
     Verificavitoria();
     AtualizaTexto();
 }
 
 const movercima = () =>{
-    if(FimJogo !== true){
+    if(!FimJogo){
         y > 0 ? y-=1 : "";
-        player.classList.add('subir');
-        setTimeout(() => {
-            player.classList.remove('subir');
-        }, 50)
         updatePosicao();
     }
 }
 
 const moverbaixo = () =>{
-    if(FimJogo !== true){
+    if(!FimJogo){
         y < 9 ? y+=1 : "";
-        player.classList.add('descer');
-        setTimeout(() => {
-            player.classList.remove('descer');
-        }, 50)
         updatePosicao();
     } 
 }
 
 const moveresquerda = () =>{
-    if(FimJogo !== true){
+    if(!FimJogo){
         x > 0 ? x-=1 : "";
-        player.classList.add('esquerda');
-        setTimeout(() => {
-            player.classList.remove('esquerda');
-        }, 50)
         updatePosicao();
     }
 }
 
 const moverdireita = () =>{
-    if(FimJogo !== true){
+    if(!FimJogo){
         x < 9 ? x+=1 : "";
-        player.classList.add('direita');
-        setTimeout(() => {
-            player.classList.remove('direita');
-        }, 50)
         updatePosicao();
     }
 }
 
 const ReiniciarGame = () =>{
-    if(FimJogo == true){    
-        FimJogo = false;
-        pontuacao = 0;
-        controle.style.display = "block";
-        gamebackground.style.display = "block";
-        gamebackground.classList.remove('animateescurecertudofinal');
-        fim.style.display = "none";
-        inimigo.style.visibility = "hidden";
-        score.innerHTML = "Score " + pontuacao;
-        document.querySelector(".Reiniciar").style.display = "none";
-        txtp.style.visibility = "visible";
-        txtp.innerHTML = "Vá Até os quadrados Verdes";
-        BackgroundClaro();
-        musica.play();
-        gamebackground.style.boxShadow = "none";
-        gamebackground.style.backgroundColor = "#8f94fb";
-        gamebackground.classList.remove('backgroundColorido');
-        document.querySelector(".AnimacaofimdeJogo").style.display = "none";
-        document.getElementById("sndFinal").pause();
-        btnPower.style.display = "none";
-        GameStart.classList.remove('sumirAnimate');
+    if(!FimJogo){
+        return;
     }
+
+    FimJogo = false;
+    pontuacao = 0;
+    controle.style.display = "block";
+    gamebackground.style.display = "block";
+    gamebackground.classList.remove('animateescurecertudofinal');
+    fim.style.display = "none";
+    inimigo.style.visibility = "hidden";
+    score.innerHTML = "Score " + pontuacao;
+    document.querySelector(".Reiniciar").style.display = "none";
+    txtp.style.visibility = "visible";
+    txtp.innerHTML = "Vá Até os quadrados Verdes";
+    BackgroundClaro();
+    musica.play();
+    gamebackground.style.boxShadow = "none";
+    gamebackground.style.backgroundColor = "#8f94fb";
+    gamebackground.classList.remove('backgroundColorido');
+    document.querySelector(".AnimacaofimdeJogo").style.display = "none";
+    document.getElementById("sndFinal").pause();
+    btnPower.style.display = "none";
+    GameStart.classList.remove('sumirAnimate');
 }
 
 const verificarMorte = () =>{
-    if (y === (iy / tamanhoPlayer) + 1 && x === ix / tamanhoPlayer && inimigo.style.visibility === "visible"){
+    if (y === (iy / tamanhoPlayer) && x === ix / tamanhoPlayer && inimigo.style.visibility === "visible"){
         fim.innerHTML = `Fim de Jogo<br>Score ${pontuacao}`;
         fim.style.display = "block";
         FimJogo = true;
@@ -439,12 +384,12 @@ const moverInimigo = () =>{
     if(pontuacao > 3){
         ix = parseInt( inimigo.style.left.replace(/"px"/g, ""));
         iy = parseInt( inimigo.style.top.replace(/"px"/g, ""));
-        let valorRandom = parseInt(Math.random() * 4);
-        if( valorRandom === 0){
+        let valorRandom = parseInt(Math.random() * 6);
+        if(valorRandom === 0){
             x > ix / tamanhoPlayer ? inimigo.style.left = ( ix + tamanhoPlayer) + "px" : "";
             x < ix / tamanhoPlayer ? inimigo.style.left = ( ix - tamanhoPlayer) + "px" : "";
             y < (iy / tamanhoPlayer) + 1 ? inimigo.style.top = ( iy - tamanhoPlayer) + "px" : "";
-            y > (iy / tamanhoPlayer) + 1 ? inimigo.style.top = ( iy + tamanhoPlayer) + "px" : "";
+            y > (iy / tamanhoPlayer) ? inimigo.style.top = ( iy + tamanhoPlayer) + "px" : "";
             ix = parseInt( inimigo.style.left.replace(/"px"/g, ""));
             iy = parseInt( inimigo.style.top.replace(/"px"/g, ""));
             verificarMorte();
@@ -484,6 +429,8 @@ const VoltarTelas = () =>{
     document.querySelector(".TelaCreditos").style.display = "none";
     document.querySelector(".GameStart").style.display = "none";
     document.querySelector(".TelaConfig").style.display = "none";
+    document.querySelector(".AnimacaofimdeJogo").style.display = "none";
+    document.querySelector(".area").style.backgroundColor = "#8f94fb";
     ReiniciarGame();
 }
 
@@ -493,7 +440,6 @@ const Config = () =>{
 }
 
 const Sair = () =>{
-    console.log("sdadsa");
     window.close();
 }
 

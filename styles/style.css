@@ -22,6 +22,7 @@ body{
     opacity: 90%;
     border-radius: 10px;
     display: block;
+    position: relative;
     width: var(--tamanhoTabuleiro);
     height: var(--tamanhoTabuleiro);
 }
@@ -137,15 +138,23 @@ body{
     width: 67px;
     height: 67px;
     display: none;
-    background-color: transparent;
+    background: none;
+    display: none;
+    align-items: center;
+    justify-content: center;
     user-select: none;
     border: solid black 2px;
+}
+
+button{
+    cursor: pointer;
 }
 
 .controle button{
     background-color: transparent;
     user-select: none;
     border: solid black 2px;
+    border-style: double;
     width: 67px;
     height: 67px;
 }
@@ -185,35 +194,11 @@ body{
 
 .player{
     background-color: black;
-    position: relative;
+    position: absolute;
+    transition: 0.100s all ease;
     width: var(--tamanhoQuadra);
     height: var(--tamanhoQuadra);
-    animation: playerDark 5s infinite;
     z-index: 90;
-}
-
-@keyframes playerDark {
-    0%, 100%{
-        background-color: #8f94fb;
-    } 50%{
-        background-color: black;
-    }
-}
-
-.subir{
-    animation: animatesubir 50ms;
-}
-
-.descer{
-    animation: animatedescer 50ms;
-}
-
-.direita{
-    animation: animatedireita 50ms;
-}
-
-.esquerda{
-    animation: animateesquerda 50ms;
 }
 
 @keyframes animatesubir {
@@ -261,8 +246,10 @@ body{
 }
 
 .fruta{
-    background-color: green;
-    position: relative;
+    background-color: #209471;
+    box-shadow: 0px 0px 43px 0px #209471;
+    position: absolute;
+    transition: all 1s ease-out;
     width: var(--tamanhoQuadra);
     height: var(--tamanhoQuadra);
     z-index: 89;
@@ -294,9 +281,10 @@ body{
 }
 
 .inimigo{
-    background-color: red;
-    position: relative;
+    background-color: #7e3351;
+    position: absolute;
     visibility: hidden;
+    transition: 0.5s all ease-in-out;
     width: var(--tamanhoQuadra);
     height: var(--tamanhoQuadra);
     animation: spin 10s linear infinite;
@@ -319,6 +307,26 @@ body{
     display: none;
 }
 
+.GameStart button{
+    color: white;
+    background: none;
+    padding: 10px 20px;
+    border: 2px solid white;
+}
+
+.GameStart .btn-SairJogo{
+    animation: 2s subidesce infinite;
+}
+
+@keyframes subidesce {
+    0%, 100%{
+        top: 0;
+    }
+    50%{
+        top: 2px;
+    }
+}
+
 p{
     position: fixed;
 }
@@ -335,7 +343,7 @@ p{
     background: #8f94fb;
     background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
     width: 100%;
-    height:100vh;
+    height: 100vh;
     position: fixed;
     z-index: -1;
 }
@@ -346,6 +354,14 @@ p{
     flex-direction: column;
     justify-content: center;
     height: 100vh;
+}
+
+.AnimacaofimdeJogo button{
+    color: white;
+    background: none;
+    padding: 10px 20px;
+    animation: 2s subidesce infinite;
+    border: 2px solid white;
 }
 
 .balao {
@@ -421,9 +437,15 @@ p{
 
 .Menu{
     font-family: 'Raleway';
+    font-weight: 900;
+    color: white;
+
     background: transparent;
     border: none;
-    margin: 3px 0;
+    padding: 3px 0;
+
+    cursor: pointer;
+    letter-spacing: 4px;
 }
 
 .TelaCreditos{
@@ -436,6 +458,10 @@ p{
 
 .btn-voltar{
     position: fixed;
+    background: none;
+    border: 2px solid white;
+    padding: 10px;
+    color: white;
     margin: 5px;
     left: 0px;
     top: 0px;
@@ -608,6 +634,12 @@ wadwadwadwa */
 
 h1{
     font-size: calc(75px);
+}
+
+.texto-main{
+    letter-spacing: 2px;
+    font-weight: bold;
+    background-color: white;
 }
   
 .Title {
