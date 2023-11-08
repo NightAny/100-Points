@@ -4,11 +4,11 @@ var score = document.getElementById('score');
 var fim = document.getElementById("FimJogo");
 var gamebackground = document.querySelector(".area");
 var musica = document.querySelector("audio");
-musica.volume = 0.4;
+musica.volume = 0.1;
 var sndMorte = document.getElementById("sndMorte");
-sndMorte.volume = 0.4;
+sndMorte.volume = 0.1;
 var sndMoeda = document.getElementById("sndMoeda");
-sndMoeda.volume = 0.5;
+sndMoeda.volume = 0.2;
 
 var controle = document.querySelector(".controle");
 var btnPower = document.querySelector(".Power");
@@ -374,6 +374,7 @@ const verificarMorte = () =>{
         fim.style.display = "block";
         FimJogo = true;
         document.querySelector(".Reiniciar").style.display = "block";
+        document.querySelector(".btn-SairJogo").style.display = "block";
         txtp.style.visibility = "hidden";
         sndMorte.play();
     }
@@ -410,7 +411,7 @@ const verificarFruta = () =>{
     let py = player.getBoundingClientRect().y;
     let fx = Fruta.getBoundingClientRect().x;
     let fy = Fruta.getBoundingClientRect().y;
-    px == fx && py == fy ? destruirFruta() : "";
+    px == fx && py == fy && destruirFruta();
 }
 
 const ComecarJogo = () =>{
